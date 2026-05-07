@@ -17,6 +17,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 .hero-glow {
@@ -57,4 +58,35 @@ body {
   transform: rotateY(10deg)
     translateY(calc((var(--scroll-y) * -0.075) * 1px))
     translateZ(30px);
+}
+
+.heading-xl {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.08;
+  font-weight: 700;
+}
+
+.heading-lg {
+  font-size: clamp(1.5rem, 4.8vw, 2.75rem);
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.mobile-snap-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .mobile-snap-stats {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.2rem;
+  }
+
+  .mobile-snap-stats > * {
+    min-width: 72%;
+  }
 }
