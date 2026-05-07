@@ -1,18 +1,9 @@
-import { readdir } from "node:fs/promises";
-import path from "node:path";
-
 export async function GET() {
-  try {
-    const framesDir = path.join(process.cwd(), "public", "image_frames");
-    const files = await readdir(framesDir);
+  const TOTAL_FRAMES = 240;
+  const frames = Array.from({ length: TOTAL_FRAMES }, (_, index) => {
+    const frameNumber = String(index + 1).padStart(3, "0");
+    return `/image_frames/ezgif-frame-${frameNumber}.jpg`;
+  });
 
-    const frames = files
-      .filter((file) => /^ezgif-frame-\d{3}\.jpg$/i.test(file))
-      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-      .map((file) => `/image_frames/${file}`);
-
-    return Response.json({ frames });
-  } catch {
-    return Response.json({ frames: [] }, { status: 200 });
-  }
+  return Response.json({ frames });
 }
