@@ -7,6 +7,10 @@ type HeroSectionProps = {
   showLoader: boolean;
 };
 
+const HERO_CROP_ZOOM = 1.16;
+const HERO_FOCAL_X = 0.44;
+const HERO_FOCAL_Y = 0.46;
+
 export function HeroSection({ showLoader }: HeroSectionProps) {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const scrubSectionRef = useRef<HTMLElement | null>(null);
@@ -18,6 +22,7 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
   const currentFrameRef = useRef(0);
   const activeFrameRef = useRef(0);
   const [scrollPercent, setScrollPercent] = useState(0);
+  const heroMoveRatio = Math.min(1, Math.max(0, scrollPercent / 100));
 
   const drawFrameToCanvas = (img: HTMLImageElement) => {
     const canvas = canvasRef.current;
@@ -47,6 +52,16 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
       sh = img.naturalWidth / canvasRatio;
       sy = (img.naturalHeight - sh) / 2;
     }
+
+    // Gentle zoom/crop to keep edge watermark regions out of frame.
+    const zoomedSw = sw / HERO_CROP_ZOOM;
+    const zoomedSh = sh / HERO_CROP_ZOOM;
+    const focalSx = sx + (sw - zoomedSw) * HERO_FOCAL_X;
+    const focalSy = sy + (sh - zoomedSh) * HERO_FOCAL_Y;
+    sx = Math.min(Math.max(0, focalSx), img.naturalWidth - zoomedSw);
+    sy = Math.min(Math.max(0, focalSy), img.naturalHeight - zoomedSh);
+    sw = zoomedSw;
+    sh = zoomedSh;
 
     ctx.clearRect(0, 0, targetWidth, targetHeight);
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetWidth, targetHeight);
@@ -145,20 +160,25 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
     <section ref={scrubSectionRef} className={`relative ${isMobile ? "h-[280vh]" : "h-[340vh]"}`}>
       <div className="sticky top-0 h-screen overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-60" aria-label="Car frame sequence" />
-        <div className="hero-glow absolute inset-0" />
       </div>
 
       <div className="pointer-events-none absolute left-0 top-0 z-10 h-screen w-full">
-        <div className="mx-auto flex h-full max-w-6xl flex-col justify-between px-6 py-12 md:px-10">
+        <div
+          className="mx-auto flex h-full max-w-6xl flex-col justify-between px-6 py-12 md:px-10"
+          style={{
+            transform: `translateY(${heroMoveRatio * 86}px) scale(${1 - heroMoveRatio * 0.06})`,
+            transformOrigin: "center top",
+          }}
+        >
           <div className="max-w-3xl pt-24 md:pt-32">
             <p className="text-xs uppercase tracking-[0.3em] text-zinc-300">Premium Car Dealer Experience</p>
-            <h1 className="heading-xl mt-4 text-white">Scroll. Drive. Feel Every Curve In 3D.</h1>
+            <h1 className="heading-xl mt-4 text-white">Scroll. Drive. Feel Every Curve Of Dodge.</h1>
             <p className="mt-4 max-w-xl text-zinc-200">
-              Explore elite performance cars through a cinematic, immersive website powered by React and Next.js.
+              Explore elite performance cars through a cinematic, immersive showcasing powered by Dodge.
             </p>
             <p className="mt-4 text-xs uppercase tracking-[0.25em] text-zinc-300">Scroll Progress: {scrollPercent.toFixed(0)}%</p>
             {showLoader ? null : (
-              <p className="mt-2 text-xs text-zinc-400">Frame sequence optimized for desktop scrubbing.</p>
+              <p className="mt-2 text-xs text-zinc-400">Power, Elegance and Performance.</p>
             )}
           </div>
 

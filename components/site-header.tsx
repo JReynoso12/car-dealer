@@ -2,26 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { navLinks } from "@/lib/data/site";
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-[80] transition ${
-        scrolled ? "bg-black/70 backdrop-blur-md border-b border-white/10" : "bg-transparent"
-      }`}
+      className="fixed inset-x-0 top-0 z-[80] bg-transparent"
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link href="/" className="min-h-11 min-w-11 content-center text-sm tracking-[0.35em] text-zinc-100">
