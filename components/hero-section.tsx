@@ -176,7 +176,6 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
             <p className="mt-4 max-w-xl text-zinc-200">
               Explore elite performance cars through a cinematic, immersive showcasing powered by Dodge.
             </p>
-            <p className="mt-4 text-xs uppercase tracking-[0.25em] text-zinc-300">Scroll Progress: {scrollPercent.toFixed(0)}%</p>
             {showLoader ? null : (
               <p className="mt-2 text-xs text-zinc-400">Power, Elegance and Performance.</p>
             )}
