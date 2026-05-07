@@ -15,7 +15,7 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link href="/" className="min-h-11 min-w-11 content-center text-sm tracking-[0.35em] text-zinc-100">
-          CARWEB
+          STREET-CAR
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -43,7 +43,7 @@ export function SiteHeader() {
         <div className="hidden md:block">
           <Link
             href="/#contact"
-            className="inline-flex min-h-11 items-center rounded-full bg-cyan-400 px-5 text-sm font-semibold text-black transition hover:bg-cyan-300"
+            className="inline-flex min-h-11 items-center rounded-full bg-grey-400 px-5 text-sm font-semibold text-black transition hover:bg-cyan-300"
           >
             Book Test Drive
           </Link>
@@ -97,7 +97,7 @@ export function SiteHeader() {
           ))}
           <Link
             href="/#contact"
-            className="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-cyan-400 px-4 text-sm font-semibold text-black"
+            className="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-grey-400 px-4 text-sm font-semibold text-black"
           >
             Book Test Drive
           </Link>

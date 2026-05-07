@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="glass rounded-3xl p-7">
           <h2 className="heading-lg">Our story</h2>
           <div className="mt-4 space-y-4 text-zinc-300">
-            <p>CARWEB started as a small showroom built around a simple promise: premium cars should come with premium trust.</p>
+            <p>STREET CAR started as a small showroom built around a simple promise: premium cars should come with premium trust.</p>
             <p>Over the years, we expanded into a full-service dealership known for transparent pricing, careful inspections, and a smooth buying process for modern drivers.</p>
             <p>Today, we continue to evolve with digital tools and immersive experiences while staying committed to honest service.</p>
           </div>

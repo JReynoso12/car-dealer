@@ -129,7 +129,7 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 text-xs text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>Copyright {year} CARWEB Motors. All rights reserved.</p>
+          <p>Copyright {year} STREET CAR Motors. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-white">Privacy Policy</a>
             <a href="#" className="hover:text-white">Terms of Use</a>

@@ -7,14 +7,18 @@ type LoaderOverlayProps = {
 };
 
 export function LoaderOverlay({ isMobile }: LoaderOverlayProps) {
-  const [hidden, setHidden] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return sessionStorage.getItem("hasLoaded") === "true";
-  });
+  const [hidden, setHidden] = useState(false);
   const [progress, setProgress] = useState(0);
   const [showSkip, setShowSkip] = useState(false);
 
   const totalDuration = useMemo(() => (isMobile ? 1200 : 1800), [isMobile]);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setHidden(sessionStorage.getItem("hasLoaded") === "true");
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
 
   useEffect(() => {
     if (hidden) return;

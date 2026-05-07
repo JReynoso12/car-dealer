@@ -15,20 +15,6 @@ export default function Home() {
       <LoaderOverlay isMobile={isMobile} />
       <HeroSection showLoader />
 
-      <section className="mx-auto max-w-6xl px-6 py-10 md:px-10">
-        <div className="mobile-snap-stats">
-          {[
-            ["120+", "Cars Ready"],
-            ["4.9/5", "Dealer Rating"],
-            ["24H", "VIP Support"],
-          ].map(([value, label]) => (
-            <div key={label} className="glass snap-start rounded-2xl p-4 text-center">
-              <p className="text-2xl font-semibold">{value}</p>
-              <p className="text-xs uppercase tracking-widest text-zinc-300">{label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       <section id="financing" className="mx-auto max-w-6xl px-6 py-20 md:px-10">
         <div className="glass rounded-3xl p-8">

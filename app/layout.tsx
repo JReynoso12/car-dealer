@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CarWeb | Immersive Car Dealer",
+  title: "STREET CAR | Immersive Car Dealer",
   description:
     "Modern car dealer website built with Next.js and React featuring scroll-driven 3D storytelling and cinematic media.",
 };

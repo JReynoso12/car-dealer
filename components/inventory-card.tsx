@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Car, TrustBadge } from "@/lib/data/cars";
 
 const badgeClasses: Record<TrustBadge, string> = {
@@ -18,10 +18,14 @@ type InventoryCardProps = {
 };
 
 export function InventoryCard({ car, priority = false }: InventoryCardProps) {
-  const [saved, setSaved] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem(`fav-${car.slug}`) === "true";
-  });
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setSaved(localStorage.getItem(`fav-${car.slug}`) === "true");
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, [car.slug]);
 
   const toggleSaved = () => {
     const next = !saved;
