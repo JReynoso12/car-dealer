@@ -29,6 +29,7 @@ export default function Home() {
   const activeFrameRef = useRef("/car-front.jpeg");
   const [scrollPercent, setScrollPercent] = useState(0);
   const [activeFrameSrc, setActiveFrameSrc] = useState<string>("/car-front.jpeg");
+  const [framesReady, setFramesReady] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -41,11 +42,27 @@ export default function Home() {
 
         if (!mounted || frames.length === 0) return;
 
-        frameListRef.current = frames;
+        const preloadResults = await Promise.all(
+          frames.map(
+            (src) =>
+              new Promise<boolean>((resolve) => {
+                const img = new window.Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = src;
+              }),
+          ),
+        );
+
+        const readyFrames = frames.filter((_, idx) => preloadResults[idx]);
+        if (!mounted || readyFrames.length === 0) return;
+
+        frameListRef.current = readyFrames;
         targetFrameRef.current = 0;
         currentFrameRef.current = 0;
-        activeFrameRef.current = frames[0];
-        setActiveFrameSrc(frames[0]);
+        activeFrameRef.current = readyFrames[0];
+        setActiveFrameSrc(readyFrames[0]);
+        setFramesReady(true);
       } catch {
         // Keep fallback still image when frames cannot be loaded.
       }
@@ -132,6 +149,13 @@ export default function Home() {
             loading="eager"
           />
           <div className="hero-glow absolute inset-0" />
+          {!framesReady ? (
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/35">
+              <p className="rounded-full border border-white/35 px-5 py-2 text-xs uppercase tracking-[0.2em] text-zinc-200">
+                Loading animation frames...
+              </p>
+            </div>
+          ) : null}
         </div>
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-screen w-full">
           <div className="mx-auto flex h-full max-w-6xl flex-col justify-between px-6 py-12 md:px-10">
