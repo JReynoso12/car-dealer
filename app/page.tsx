@@ -22,14 +22,53 @@ const inventory = [
 
 export default function Home() {
   const scrubSectionRef = useRef<HTMLElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const frameListRef = useRef<string[]>([]);
+  const preloadedImagesRef = useRef<HTMLImageElement[]>([]);
   const targetFrameRef = useRef(0);
   const currentFrameRef = useRef(0);
-  const activeFrameRef = useRef("/car-front.jpeg");
+  const activeFrameRef = useRef(0);
   const [scrollPercent, setScrollPercent] = useState(0);
-  const [activeFrameSrc, setActiveFrameSrc] = useState<string>("/car-front.jpeg");
   const [framesReady, setFramesReady] = useState(false);
+
+  const drawFrameToCanvas = (img: HTMLImageElement) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const targetWidth = Math.max(1, Math.round(rect.width * dpr));
+    const targetHeight = Math.max(1, Math.round(rect.height * dpr));
+
+    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+    }
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const imageRatio = img.naturalWidth / img.naturalHeight;
+    const canvasRatio = targetWidth / targetHeight;
+
+    let sx = 0;
+    let sy = 0;
+    let sw = img.naturalWidth;
+    let sh = img.naturalHeight;
+
+    // Draw with object-cover behavior.
+    if (imageRatio > canvasRatio) {
+      sw = img.naturalHeight * canvasRatio;
+      sx = (img.naturalWidth - sw) / 2;
+    } else {
+      sh = img.naturalWidth / canvasRatio;
+      sy = (img.naturalHeight - sh) / 2;
+    }
+
+    ctx.clearRect(0, 0, targetWidth, targetHeight);
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetWidth, targetHeight);
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -45,23 +84,29 @@ export default function Home() {
         const preloadResults = await Promise.all(
           frames.map(
             (src) =>
-              new Promise<boolean>((resolve) => {
+              new Promise<HTMLImageElement | null>((resolve) => {
                 const img = new window.Image();
-                img.onload = () => resolve(true);
-                img.onerror = () => resolve(false);
+                img.decoding = "async";
+                img.onload = () => resolve(img);
+                img.onerror = () => resolve(null);
                 img.src = src;
               }),
           ),
         );
 
-        const readyFrames = frames.filter((_, idx) => preloadResults[idx]);
+        const readyImages = preloadResults.filter(
+          (img): img is HTMLImageElement => img !== null,
+        );
+
+        const readyFrames = frames.filter((_, idx) => preloadResults[idx] !== null);
         if (!mounted || readyFrames.length === 0) return;
 
         frameListRef.current = readyFrames;
+        preloadedImagesRef.current = readyImages;
         targetFrameRef.current = 0;
         currentFrameRef.current = 0;
-        activeFrameRef.current = readyFrames[0];
-        setActiveFrameSrc(readyFrames[0]);
+        activeFrameRef.current = 0;
+        drawFrameToCanvas(readyImages[0]);
         setFramesReady(true);
       } catch {
         // Keep fallback still image when frames cannot be loaded.
@@ -77,7 +122,8 @@ export default function Home() {
   useEffect(() => {
     const animate = () => {
       const frames = frameListRef.current;
-      if (frames.length > 0) {
+      const images = preloadedImagesRef.current;
+      if (frames.length > 0 && images.length > 0) {
         // Lerp toward the frame target with capped step for luxury-grade smoothness.
         const delta = targetFrameRef.current - currentFrameRef.current;
         const easedStep = delta * 0.06;
@@ -93,10 +139,9 @@ export default function Home() {
           0,
           Math.min(frames.length - 1, Math.round(currentFrameRef.current)),
         );
-        const src = frames[frameIndex];
-        if (src && src !== activeFrameRef.current) {
-          activeFrameRef.current = src;
-          setActiveFrameSrc(src);
+        if (frameIndex !== activeFrameRef.current && images[frameIndex]) {
+          activeFrameRef.current = frameIndex;
+          drawFrameToCanvas(images[frameIndex]);
         }
       }
 
@@ -123,13 +168,25 @@ export default function Home() {
       setScrollPercent(progressed * 100);
     };
 
+    const handleResize = () => {
+      updateScroll();
+      const images = preloadedImagesRef.current;
+      if (images.length > 0) {
+        const frameIndex = Math.max(
+          0,
+          Math.min(images.length - 1, Math.round(currentFrameRef.current)),
+        );
+        drawFrameToCanvas(images[frameIndex]);
+      }
+    };
+
     updateScroll();
     window.addEventListener("scroll", updateScroll, { passive: true });
-    window.addEventListener("resize", updateScroll);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("scroll", updateScroll);
-      window.removeEventListener("resize", updateScroll);
+      window.removeEventListener("resize", handleResize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
@@ -141,12 +198,10 @@ export default function Home() {
         className="relative h-[340vh]"
       >
         <div className="sticky top-0 h-screen overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={activeFrameSrc}
-            alt="Car sequence frame"
-            className="absolute inset-0 h-full w-full object-cover opacity-60"
-            loading="eager"
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 h-full w-full opacity-60"
+            aria-label="Car sequence frame"
           />
           <div className="hero-glow absolute inset-0" />
           {!framesReady ? (
