@@ -3,7 +3,7 @@ import { cars } from "@/lib/data/cars";
 
 export default function InventoryPage() {
   return (
-    <main className="mx-auto max-w-6xl bg-[#040406] px-6 py-16 text-white md:px-10">
+    <main className="mx-auto max-w-6xl bg-[#040406] px-4 py-16 text-white sm:px-6 md:px-10">
       <p className="text-xs uppercase tracking-[0.3em] text-zinc-300">Inventory</p>
       <h1 className="heading-lg mt-3">All Cars</h1>
       <p className="mt-3 max-w-2xl text-zinc-300">

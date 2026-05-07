@@ -18,8 +18,8 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer id="contact" className="bg-[#0a0a0a] border-t border-white/10 text-zinc-300">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-2 xl:grid-cols-4">
+    <footer id="contact" className="border-t border-white/10 bg-[#0a0a0a] text-zinc-300">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 xl:grid-cols-4">
         <div>
           <p className="text-sm tracking-[0.3em] text-white">CARWEB</p>
           <p className="mt-4 text-sm text-zinc-400">
@@ -107,7 +107,7 @@ export function SiteFooter() {
 
           <form onSubmit={onSubmit} className="mt-5 space-y-3">
             <label className="text-sm text-white">Newsletter</label>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <input
                 type="email"
                 value={email}
@@ -117,7 +117,7 @@ export function SiteFooter() {
               />
               <button
                 type="submit"
-                className="min-h-11 rounded-lg bg-cyan-400 px-4 text-sm font-semibold text-black"
+                className="min-h-11 rounded-lg bg-cyan-400 px-4 text-sm font-semibold text-black sm:whitespace-nowrap"
               >
                 Subscribe
               </button>
@@ -128,9 +128,9 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 text-xs text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-xs text-zinc-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>Copyright {year} STREET CAR Motors. All rights reserved.</p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <a href="#" className="hover:text-white">Privacy Policy</a>
             <a href="#" className="hover:text-white">Terms of Use</a>
             <span>Dealer License #DL-2026-1190</span>

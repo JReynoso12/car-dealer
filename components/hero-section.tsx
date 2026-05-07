@@ -293,12 +293,12 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
   }, []);
 
   return (
-    <section ref={scrubSectionRef} className={`relative ${isMobile ? "h-[220vh]" : "h-[200vh]"}`}>
-      <div className="sticky top-0 h-screen overflow-hidden">
+    <section ref={scrubSectionRef} className={`relative ${isMobile ? "h-[240dvh]" : "h-[200vh]"}`}>
+      <div className="sticky top-0 h-[100dvh] overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-80" aria-label="Car frame sequence" />
       </div>
 
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-screen w-full">
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-[100dvh] w-full">
         <div
           className="mx-auto flex h-full max-w-6xl flex-col justify-between px-4 py-10 sm:px-6 md:px-10"
           style={{
@@ -307,7 +307,7 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
           }}
         >
           <div
-            className="max-w-3xl pt-20 transition-all duration-500 ease-out md:pt-32"
+            className="max-w-3xl pt-24 transition-all duration-500 ease-out md:pt-32"
             style={{
               opacity: heroTextOpacity,
               transform: `translateX(${heroTextTravel}px)`,
@@ -338,7 +338,7 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
               </p>
             </div>
             <p className="mt-2 text-xs uppercase tracking-[0.22em] text-zinc-300">{activeDetail.kicker}</p>
-            <h3 className="mt-2 text-base font-semibold text-white md:text-xl">{activeDetail.title}</h3>
+            <h3 className="mt-2 text-sm font-semibold text-white md:text-xl">{activeDetail.title}</h3>
             <p className="mt-2 text-xs text-zinc-200 md:text-base">{activeDetail.description}</p>
             <div className="mt-3 grid gap-2 md:grid-cols-2">
               {activeDetail.specs.map(([label, value]) => (

@@ -41,11 +41,11 @@ export function InventoryDetailClient({ car, relatedCars }: InventoryDetailClien
 
   return (
     <main className="bg-[#040406] text-white">
-      <section className="relative mx-auto max-w-7xl px-6 pb-12 pt-12 md:px-10">
+      <section className="relative mx-auto max-w-7xl px-4 pb-10 pt-10 sm:px-6 md:px-10 md:pb-12 md:pt-12">
         <div className="relative h-[42vh] min-h-[320px] w-full overflow-hidden rounded-3xl border border-white/10">
           <Image src={selectedImage} alt={car.name} fill sizes="100vw" className="object-cover" />
         </div>
-        <div className="mt-4 grid grid-cols-4 gap-3 md:grid-cols-6">
+        <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 md:gap-3">
           {car.gallery.map((img) => (
             <button
               key={img}
@@ -58,7 +58,7 @@ export function InventoryDetailClient({ car, relatedCars }: InventoryDetailClien
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-8 px-6 pb-20 md:grid-cols-2 md:px-10">
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-16 sm:px-6 md:grid-cols-2 md:px-10 md:pb-20">
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-zinc-400">{car.year}</p>
           <h1 className="heading-lg mt-2">{car.name}</h1>
@@ -67,7 +67,7 @@ export function InventoryDetailClient({ car, relatedCars }: InventoryDetailClien
             <span className="text-2xl font-semibold">${car.price.toLocaleString()}</span>
           </div>
 
-          <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10">
             <table className="w-full text-sm">
               <tbody>
                 {Object.entries(car.specs).map(([key, value]) => (
@@ -137,7 +137,7 @@ export function InventoryDetailClient({ car, relatedCars }: InventoryDetailClien
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 md:px-10">
+      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 md:px-10">
         <h2 className="heading-lg">Related Cars</h2>
         <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
           {relatedCars.map((related) => (

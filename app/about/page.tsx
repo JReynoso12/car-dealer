@@ -10,13 +10,13 @@ const awards = ["Certified Dealer 2024", "Customer Choice 2025", "Top Sales Part
 export default function AboutPage() {
   return (
     <main className="bg-[#040406] text-white">
-      <section className="mx-auto max-w-6xl px-6 py-16 md:px-10">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:px-10">
         <p className="text-xs uppercase tracking-[0.3em] text-zinc-300">Founded 2010</p>
         <h1 className="heading-xl mt-3">CARWEB Motors</h1>
         <p className="mt-4 max-w-2xl text-zinc-300">Delivering premium vehicles with transparent deals and human-first service.</p>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-8 md:px-10">
+      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:px-10">
         <div className="glass rounded-3xl p-7">
           <h2 className="heading-lg">Our story</h2>
           <div className="mt-4 space-y-4 text-zinc-300">
@@ -27,7 +27,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-8 md:px-10">
+      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:px-10">
         <div className="mobile-snap-stats">
           {[
             ["15+", "Years in business"],
@@ -43,7 +43,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-10 md:px-10">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:px-10">
         <h2 className="heading-lg">Our team</h2>
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((member) => (
@@ -57,7 +57,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-10 md:px-10">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:px-10">
         <h2 className="heading-lg">Awards & certifications</h2>
         <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
           {awards.map((award) => (
@@ -68,7 +68,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-20 pt-8 md:px-10">
+      <section className="mx-auto max-w-6xl px-4 pb-20 pt-8 sm:px-6 md:px-10">
         <h2 className="heading-lg">Our values</h2>
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
           {[

@@ -50,7 +50,7 @@ export function SiteHeader() {
         <div className="hidden md:block">
           <Link
             href="/#contact"
-            className="inline-flex min-h-11 items-center rounded-full bg-grey-400 px-5 text-sm font-semibold text-black transition hover:bg-cyan-300"
+            className="inline-flex min-h-11 items-center rounded-full bg-gray-200 px-5 text-sm font-semibold text-black transition hover:bg-cyan-300"
           >
             Book Test Drive
           </Link>
@@ -104,7 +104,7 @@ export function SiteHeader() {
           ))}
           <Link
             href="/#contact"
-            className="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-grey-400 px-4 text-sm font-semibold text-black"
+            className="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-gray-200 px-4 text-sm font-semibold text-black"
           >
             Book Test Drive
           </Link>

@@ -22,7 +22,7 @@ export function TestimonialsCarousel() {
   const next = () => setIndex((i) => (i + 1) % count);
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-20 md:px-10">
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:px-10 md:py-20">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 className="heading-lg text-white">What our customers say</h2>
@@ -32,14 +32,14 @@ export function TestimonialsCarousel() {
       </div>
 
       <div
-        className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6"
+        className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
         <div className="transition duration-500">
-          <article className="mx-auto max-w-3xl">
+          <article className="mx-auto max-w-3xl px-10 sm:px-12">
             <p className="text-amber-300">{"★".repeat(active.rating)}{"☆".repeat(5 - active.rating)}</p>
-            <p className="mt-4 text-lg text-zinc-100">{active.review}</p>
+            <p className="mt-4 text-base text-zinc-100 sm:text-lg">{active.review}</p>
             <div className="mt-5 flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-cyan-500/30 text-sm font-semibold">
                 {active.name

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   title: "STREET CAR | Immersive Car Dealer",
   description:
     "Modern car dealer website built with Next.js and React featuring scroll-driven 3D storytelling and cinematic media.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
