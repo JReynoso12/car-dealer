@@ -2,19 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/data/site";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   return (
     <header
       className="fixed inset-x-0 top-0 z-[80] bg-transparent"
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
-        <Link href="/" className="min-h-11 min-w-11 content-center text-sm tracking-[0.35em] text-zinc-100">
+        <Link href="/" className="min-h-11 min-w-11 content-center text-xs tracking-[0.2em] text-zinc-100 sm:text-sm sm:tracking-[0.35em]">
           STREET-CAR
         </Link>
 
@@ -70,7 +77,7 @@ export function SiteHeader() {
         onClick={() => setMenuOpen(false)}
       />
       <aside
-        className={`fixed right-0 top-0 z-[100] h-full w-72 border-l border-white/10 bg-[#080b12] p-6 transition md:hidden ${
+        className={`fixed right-0 top-0 z-[100] h-full w-[min(88vw,20rem)] overflow-y-auto border-l border-white/10 bg-[#080b12] p-6 transition md:hidden ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

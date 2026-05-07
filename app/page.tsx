@@ -16,8 +16,8 @@ export default function Home() {
       <HeroSection showLoader />
 
 
-      <section id="financing" className="mx-auto max-w-6xl px-6 py-20 md:px-10">
-        <div className="glass rounded-3xl p-8">
+      <section id="financing" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:px-10 md:py-20">
+        <div className="glass rounded-3xl p-6 md:p-8">
           <p className="text-xs uppercase tracking-[0.3em] text-zinc-300">Financing</p>
           <h2 className="heading-lg mt-3">Simple approvals, flexible terms</h2>
           <p className="mt-3 max-w-3xl text-zinc-300">
@@ -26,8 +26,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="inventory" className="mx-auto max-w-6xl px-6 py-16 md:px-10">
-        <div className="mb-8 flex items-end justify-between gap-4">
+      <section id="inventory" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:px-10">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">Featured Inventory</p>
             <h3 className="heading-lg mt-3">Available Now</h3>

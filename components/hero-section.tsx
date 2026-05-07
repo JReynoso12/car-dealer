@@ -117,7 +117,7 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
   const [showDetail, setShowDetail] = useState(true);
   const detailTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const heroMoveRatio = Math.min(1, Math.max(0, scrollPercent / 100));
-  const heroTextTravel = (heroMoveRatio - 0.5) * 72;
+  const heroTextTravel = (heroMoveRatio - 0.5) * (isMobile ? 32 : 72);
   const heroTextOpacity = Math.max(1.18, 1 - Math.abs(heroMoveRatio - 1.5) * 1.35);
   const activeDetailIndex = Math.max(
     0,
@@ -293,29 +293,29 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
   }, []);
 
   return (
-    <section ref={scrubSectionRef} className={`relative ${isMobile ? "h-[200vh]" : "h-[200vh]"}`}>
+    <section ref={scrubSectionRef} className={`relative ${isMobile ? "h-[220vh]" : "h-[200vh]"}`}>
       <div className="sticky top-0 h-screen overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-80" aria-label="Car frame sequence" />
       </div>
 
       <div className="pointer-events-none absolute left-0 top-0 z-10 h-screen w-full">
         <div
-          className="mx-auto flex h-full max-w-6xl flex-col justify-between px-6 py-12 md:px-10"
+          className="mx-auto flex h-full max-w-6xl flex-col justify-between px-4 py-10 sm:px-6 md:px-10"
           style={{
             transform: `translateY(${heroMoveRatio * 86}px) scale(${1 - heroMoveRatio * 0.06})`,
             transformOrigin: "center top",
           }}
         >
           <div
-            className="max-w-3xl pt-24 transition-all duration-500 ease-out md:pt-32"
+            className="max-w-3xl pt-20 transition-all duration-500 ease-out md:pt-32"
             style={{
               opacity: heroTextOpacity,
               transform: `translateX(${heroTextTravel}px)`,
             }}
           >
             <p className="text-xs uppercase tracking-[0.3em] text-zinc-300">Premium Car Dealer Experience</p>
-            <h1 className="heading-xl mt-4 text-white">Scroll. Drive. Feel Every Curve Of Dodge.</h1>
-            <p className="mt-4 max-w-xl text-zinc-200">
+            <h1 className="heading-xl mt-3 text-white">Scroll. Drive. Feel Every Curve Of Dodge.</h1>
+            <p className="mt-3 max-w-xl text-sm text-zinc-200 md:text-base">
               Explore elite performance cars through a cinematic, immersive showcasing powered by Dodge.
             </p>
             {showLoader ? null : (
@@ -324,7 +324,7 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
           </div>
 
           <div
-            className="max-w-xl rounded-2xl border border-white/20 bg-black/35 p-4 backdrop-blur-md md:p-5"
+            className="max-w-xl rounded-2xl border border-white/20 bg-black/35 p-3 backdrop-blur-md md:p-5"
             style={{
               opacity: showDetail ? 1 : 0,
               transform: `translateY(${showDetail ? 0 : 12}px)`,
@@ -338,8 +338,8 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
               </p>
             </div>
             <p className="mt-2 text-xs uppercase tracking-[0.22em] text-zinc-300">{activeDetail.kicker}</p>
-            <h3 className="mt-2 text-lg font-semibold text-white md:text-xl">{activeDetail.title}</h3>
-            <p className="mt-2 text-sm text-zinc-200 md:text-base">{activeDetail.description}</p>
+            <h3 className="mt-2 text-base font-semibold text-white md:text-xl">{activeDetail.title}</h3>
+            <p className="mt-2 text-xs text-zinc-200 md:text-base">{activeDetail.description}</p>
             <div className="mt-3 grid gap-2 md:grid-cols-2">
               {activeDetail.specs.map(([label, value]) => (
                 <div key={label} className="rounded-xl border border-white/10 bg-black/25 px-3 py-2">
@@ -350,7 +350,7 @@ export function HeroSection({ showLoader }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="mobile-snap-stats pb-8">
+          <div className="mobile-snap-stats pb-5 md:pb-8">
             {[
               ["120+", "Cars Ready"],
               ["4.9/5", "Dealer Rating"],
